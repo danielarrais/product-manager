@@ -124,8 +124,3 @@ Após essa etapa será marcado a apresentação/correção do projeto.
 ## Suporte
 
 Use o nosso canal no slack: http://bit.ly/32CuOMy para tirar dúvidas sobre o processo ou envie um e-mail para contato@coodesh.com. 
-
-
-
-
-

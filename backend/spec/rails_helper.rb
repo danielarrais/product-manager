@@ -5,8 +5,7 @@ Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |x| require x }
 
 ENV['RAILS_ENV'] ||= 'test'
 
-abort("The Rails environment is running in production mode!") if Ra
-ils.env.production?
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 
 begin

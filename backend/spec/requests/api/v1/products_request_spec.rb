@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Products", type: :request do
   let(:product) { create(:product) }
-  let(:products_list) { create_list(:product, 10) }
   let(:product_attributes) { attributes_for(:product) }
+  let(:product_attributes_list) { attributes_for_list(:product, 10) }
+  let(:product_invalid_attributes_list) { attributes_for_list(:product_invalid, 10) }
 
   describe 'GET /' do
     it 'correct welcome menssage'
@@ -11,12 +12,26 @@ RSpec.describe "Api::V1::Products", type: :request do
 
   describe 'POST /products' do
     context 'when sending a valid JSON file' do
-      it 'json com registros com atributos válidos'
-      it 'json com registros com atributos inválidos'
-    end
+      after(:each) do
+        File.delete('tmp/products.json')
+      end
+      it 'with records with valid attributes' do
+        @json_file = File.open("tmp/products.json", "w") { |f| f.puts(product_attributes_list.to_json) }
+        @json_upload_file = Rack::Test::UploadedFile.new("tmp/products.json", 'application/json')
 
-    context 'when sending a invalid JSON file' do
-      it 'file with a format other than JSON'
+        expect {
+          post api_v1_products_path, params: { json_file: @json_upload_file }
+        }.to change(Product, :count).from(0).to(10)
+      end
+
+      it 'with records with invalid attributes' do
+        @json_file = File.open("tmp/products.json", "w") { |f| f.puts(product_invalid_attributes_list.to_json) }
+        @json_upload_file = Rack::Test::UploadedFile.new("tmp/products.json", 'application/json')
+
+        expect {
+          post api_v1_products_path, params: { json_file: @json_upload_file }
+        }.to_not change(Product, :count)
+      end
     end
   end
 

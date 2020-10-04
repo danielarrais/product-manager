@@ -1,0 +1,6 @@
+$navbar-heigth: 64px;
+$footer-heigth: 124px;
+
+.login-card {
+    height: calc(100vh - #{$navbar-heigth} - #{$footer-heigth} - 1.5rem);
+}

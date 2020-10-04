@@ -112,17 +112,31 @@ RSpec.describe "Api::V1::Products", type: :request do
 
   describe 'GET /products/:id' do
     context 'when product exists' do
-      it 'return status code 200'
-      it 'return attributes the record'
+      before(:each) do
+        get api_v1_product_path(product)
+      end
+
+      it 'return status code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'return attributes the record' do
+        expect(product).to have_attributes(json.except('created_at', 'updated_at'))
+      end
     end
 
     context 'when the product does not exists' do
-      it 'return status code 404'
-      it 'returns a not found message'
-    end
-  end
+      before(:each) do
+        get api_v1_product_path(id: 0)
+      end
 
-  describe 'GET /products' do
-    it "If the same quantity is coming"
+      it 'return status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Product/)
+      end
+    end
   end
 end

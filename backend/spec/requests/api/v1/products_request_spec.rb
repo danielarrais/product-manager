@@ -81,12 +81,26 @@ RSpec.describe "Api::V1::Products", type: :request do
 
   describe 'DELETE /products/:id' do
     context 'when product exists' do
-      it 'returns status code 200'
-      it 'destroy the record'
+      before(:each) do
+        delete api_v1_product_path(product)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'destroy the record' do
+        expect {
+          product.reload
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
 
     context 'when the product not exit' do
-      it 'returns status code 404'
+      it 'returns status code 404' do
+        delete api_v1_product_path(id: 0)
+        expect(response).to have_http_status(404)
+      end
     end
   end
 

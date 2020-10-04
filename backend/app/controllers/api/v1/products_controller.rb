@@ -25,7 +25,8 @@ class Api::V1::ProductsController < Api::V1::ApiController
   end
 
   def destroy
-
+    @product.destroy
+    render json: @product, status: :ok
   end
 
   private

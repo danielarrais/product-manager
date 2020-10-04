@@ -7,10 +7,15 @@ RSpec.describe "Api::V1::Products", type: :request do
   let(:product_attributes_list) { attributes_for_list(:product, 10) }
   let(:product_invalid_attributes_list) { attributes_for_list(:product_invalid, 10) }
 
+  before(:all) do
+    @user = create(:user)
+    @headers = @user.create_new_auth_token
+  end
+
   describe 'GET /products' do
     it "if the same quantity is coming" do
       products = FactoryBot.create_list(:product, 10)
-      get api_v1_products_path
+      get api_v1_products_path, headers: @headers
       expect(products.size).to eq(json.size)
     end
   end
@@ -21,20 +26,20 @@ RSpec.describe "Api::V1::Products", type: :request do
         File.delete('tmp/products.json')
       end
       it 'with records with valid attributes' do
-        @json_file = File.open("tmp/products.json", "w") { |f| f.puts(product_attributes_list.to_json) }
-        @json_upload_file = Rack::Test::UploadedFile.new("tmp/products.json", 'application/json')
+        File.open("tmp/products.json", "w") { |f| f.puts(product_attributes_list.to_json) }
+        json_upload_file = Rack::Test::UploadedFile.new("tmp/products.json", 'application/json')
 
         expect {
-          post api_v1_products_path, params: { json_file: @json_upload_file }
+          post api_v1_products_path, params: { json_file: json_upload_file }, headers: @headers
         }.to change(Product, :count).from(0).to(10)
       end
 
       it 'with records with invalid attributes' do
-        @json_file = File.open("tmp/products.json", "w") { |f| f.puts(product_invalid_attributes_list.to_json) }
-        @json_upload_file = Rack::Test::UploadedFile.new("tmp/products.json", 'application/json')
+        File.open("tmp/products.json", "w") { |f| f.puts(product_invalid_attributes_list.to_json) }
+        json_upload_file = Rack::Test::UploadedFile.new("tmp/products.json", 'application/json')
 
         expect {
-          post api_v1_products_path, params: { json_file: @json_upload_file }
+          post api_v1_products_path, params: { json_file: json_upload_file }, headers: @headers
         }.to_not change(Product, :count)
       end
     end
@@ -44,7 +49,7 @@ RSpec.describe "Api::V1::Products", type: :request do
     context 'when product exists' do
       context 'and updated with valid attributes' do
         before(:each) do
-          put api_v1_product_path(product), params: { product: product_attributes }
+          put api_v1_product_path(product), params: { product: product_attributes }, headers: @headers
         end
 
         it 'returns status code 200' do
@@ -62,7 +67,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
       context 'and updated with invalid attributes' do
         it 'returns status code 422' do
-          put api_v1_product_path(product), params: { product: product_invalid_attributes }
+          put api_v1_product_path(product), params: { product: product_invalid_attributes }, headers: @headers
           expect(response).to have_http_status(422)
         end
       end
@@ -70,7 +75,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
     context 'when the product does not exists' do
       before(:each) do
-        put api_v1_product_path(id: 0), params: { product: product_attributes }
+        put api_v1_product_path(id: 0), params: { product: product_attributes }, headers: @headers
       end
 
       it 'return status code 404' do
@@ -86,7 +91,7 @@ RSpec.describe "Api::V1::Products", type: :request do
   describe 'DELETE /products/:id' do
     context 'when product exists' do
       before(:each) do
-        delete api_v1_product_path(product)
+        delete api_v1_product_path(product), headers: @headers
       end
 
       it 'returns status code 200' do
@@ -102,7 +107,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
     context 'when the product not exit' do
       it 'returns status code 404' do
-        delete api_v1_product_path(id: 0)
+        delete api_v1_product_path(id: 0), headers: @headers
         expect(response).to have_http_status(404)
       end
     end
@@ -111,7 +116,7 @@ RSpec.describe "Api::V1::Products", type: :request do
   describe 'GET /products/:id' do
     context 'when product exists' do
       before(:each) do
-        get api_v1_product_path(product)
+        get api_v1_product_path(product), headers: @headers
       end
 
       it 'return status code 200' do
@@ -125,7 +130,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
     context 'when the product does not exists' do
       before(:each) do
-        get api_v1_product_path(id: 0)
+        get api_v1_product_path(id: 0), headers: @headers
       end
 
       it 'return status code 404' do

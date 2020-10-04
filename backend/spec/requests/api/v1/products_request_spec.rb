@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Products", type: :request do
   let(:product) { create(:product) }
-  let(:product_invalide_attributes) { attributes_for(:product_invalid) }
+  let(:product_invalid_attributes) { attributes_for(:product_invalid) }
   let(:product_attributes) { attributes_for(:product) }
   let(:product_attributes_list) { attributes_for_list(:product, 10) }
   let(:product_invalid_attributes_list) { attributes_for_list(:product_invalid, 10) }
@@ -64,7 +64,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
       context 'and updated with invalid attributes' do
         it 'returns status code 422' do
-          put api_v1_product_path(product), params: { product: product_invalide_attributes }
+          put api_v1_product_path(product), params: { product: product_invalid_attributes }
           expect(response).to have_http_status(422)
         end
       end

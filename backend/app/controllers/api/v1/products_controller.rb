@@ -17,7 +17,11 @@ class Api::V1::ProductsController < Api::V1::ApiController
   end
 
   def update
-
+    if @product.update(product_params)
+      render json: @product, status: :ok
+    else
+      render json: { errors: @product.errors }, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -28,6 +32,10 @@ class Api::V1::ProductsController < Api::V1::ApiController
 
   def json_file_params
     params[:json_file]
+  end
+
+  def product_params
+    params.require(:product).permit(:title, :category, :price, :rating, :width, :height, :filename)
   end
 
   def set_product

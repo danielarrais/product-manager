@@ -5,8 +5,8 @@ ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# Use mysql as the database for Active Record
+gem 'mysql2', '~> 0.5.3'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -18,7 +18,12 @@ gem 'puma', '~> 4.1'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-#
+
+# Gem para autenticação
+# gem 'devise', '~> 4.7', '>= 4.7.3'
+gem 'devise_token_auth', '~> 1.1', '>= 1.1.4'
+
+gem 'sprockets', '~> 3.0', '>= 3.7.2'
 
 # Gem for bulk insertion
 gem 'activerecord-import', '~> 1.0', '>= 1.0.6'

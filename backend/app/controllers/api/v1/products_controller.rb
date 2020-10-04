@@ -1,6 +1,6 @@
 class Api::V1::ProductsController < Api::V1::ApiController
-  before_action :set_product, only: [:show, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_product, only: [:show, :update, :destroy]
 
   def index
     @products = Product.all

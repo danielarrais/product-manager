@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Products", type: :request do
   let(:product) { create(:product) }
+  let(:product_invalide_attributes) { attributes_for(:product_invalid) }
   let(:product_attributes) { attributes_for(:product) }
   let(:product_attributes_list) { attributes_for_list(:product, 10) }
   let(:product_invalid_attributes_list) { attributes_for_list(:product_invalid, 10) }
@@ -37,14 +38,44 @@ RSpec.describe "Api::V1::Products", type: :request do
 
   describe 'PUT /products/:id' do
     context 'when product exists' do
-      it 'returns status code 200'
-      it 'updates the record'
-      it 'returns the product updated'
+      context 'and updated with valid attributes' do
+        before(:each) do
+          put api_v1_product_path(product), params: { product: product_attributes }
+        end
+
+        it 'returns status code 200' do
+          expect(response).to have_http_status(200)
+        end
+
+        it 'updates the record' do
+          expect(product.reload).to have_attributes(product_attributes)
+        end
+
+        it 'returns the product updated' do
+          expect(product.reload).to have_attributes(json.except('created_at', 'updated_at'))
+        end
+      end
+
+      context 'and updated with invalid attributes' do
+        it 'returns status code 422' do
+          put api_v1_product_path(product), params: { product: product_invalide_attributes }
+          expect(response).to have_http_status(422)
+        end
+      end
     end
 
     context 'when the product does not exists' do
-      it 'return status code 404'
-      it 'returns a not found message'
+      before(:each) do
+        put api_v1_product_path(id: 0), params: { product: product_attributes }
+      end
+
+      it 'return status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a not found message' do
+        expect(response.body).to match(/Couldn't find Product/)
+      end
     end
   end
 

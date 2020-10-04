@@ -7,7 +7,7 @@ class Api::V1::ProductsController < Api::V1::ApiController
   end
 
   def show
-
+    render json: @product, status: :ok
   end
 
   def create

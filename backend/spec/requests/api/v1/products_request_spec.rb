@@ -7,8 +7,14 @@ RSpec.describe "Api::V1::Products", type: :request do
   let(:product_attributes_list) { attributes_for_list(:product, 10) }
   let(:product_invalid_attributes_list) { attributes_for_list(:product_invalid, 10) }
 
-  describe 'GET /' do
-    it 'correct welcome menssage'
+
+
+  describe 'GET /products' do
+    it "if the same quantity is coming" do
+      products = FactoryBot.create_list(:product, 10)
+      get api_v1_products_path
+      expect(products.size).to eq(json.size)
+    end
   end
 
   describe 'POST /products' do

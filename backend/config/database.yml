@@ -10,10 +10,10 @@ development:
   ssl_mode: disabled
   url: mysql2://b182082b66ce24:f84ed5b8@us-cdbr-east-02.cleardb.com/heroku_1b1ee060ffbbd5a?reconnect=true
 
-
 test:
   <<: *default
-  database: app_name_test
+  ssl_mode: disabled
+  url: mysql2://b887f40443ccc7:c7515820@us-cdbr-east-02.cleardb.com/heroku_38e079ae3b0bd79?reconnect=true
 
 production:
   <<: *default

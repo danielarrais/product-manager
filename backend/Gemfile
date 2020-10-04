@@ -18,7 +18,12 @@ gem 'puma', '~> 4.1'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-#
+
+# Gem para autenticação
+gem 'devise', '~> 4.7', '>= 4.7.3'
+gem 'devise_token_auth', '~> 1.1', '>= 1.1.4'
+
+gem 'sprockets', '~> 3.0', '>= 3.7.2'
 
 # Gem for bulk insertion
 gem 'activerecord-import', '~> 1.0', '>= 1.0.6'

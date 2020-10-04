@@ -12,7 +12,7 @@ export const login = (email, password) => (dispatch) => {
     (data) => {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { user: data },
+        payload: {user: data},
       });
 
       return Promise.resolve();

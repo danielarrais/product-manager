@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
 export default class Main extends Component {
-    render() {
-        return (
-            <main className="container">
+  render() {
+    return (
+      <main className="container">
 
-            </main>
-        )
-    }
+      </main>
+    )
+  }
 }

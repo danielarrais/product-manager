@@ -4,7 +4,7 @@ import './styles.scss'
 export default class Footer extends Component {
   render() {
     return (
-      <footer className="footer">
+      <footer className="footer bg-dark text-light">
         <div className="container">
           <div className="clearfix">
             <div className="float-left">

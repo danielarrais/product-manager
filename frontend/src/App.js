@@ -15,10 +15,8 @@ export default class App extends Component {
     return (
       <div>
         <Header/>
-        <Main/>
-        <Footer/>
-
         <Router/>
+        <Footer/>
       </div>
     );
   }

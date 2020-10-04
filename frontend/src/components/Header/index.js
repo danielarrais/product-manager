@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect} from "react-redux";
 import {logout} from "../../redux/actions/auth";
 
+import './styles.css'
+
 class Header extends Component {
   state = {
     currentUser: undefined,
@@ -26,7 +28,7 @@ class Header extends Component {
 
     return (
       <header>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container">
             <a className="navbar-brand" href={'/#'}>Product Manager</a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -38,28 +40,29 @@ class Header extends Component {
                 <li className="nav-item active">
                   <a className="nav-link" href={'/#'}>Home <span className="sr-only">(current)</span></a>
                 </li>
-                {currentUser ? (
-                  <div className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                      <a href={"/#"} className="nav-link">
-                        {currentUser.uid}
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a href="/login" className="nav-link" onClick={this.logOut}>
-                        Logout
-                      </a>
-                    </li>
-                  </div>
-                ) : (
-                  <div className="navbar-nav ml-auto">
-                    <li className="nav-item">
-                      <a href={"/login"} className="nav-link">Login</a>
-                    </li>
-                  </div>
-                )}
               </ul>
             </div>
+
+            {currentUser ? (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <span className="nav-link user-email">
+                    {currentUser.uid}
+                  </span>
+                </li>
+                <li className="nav-item">
+                  <a href="/login" className="nav-link" onClick={this.logOut}>
+                    Logout
+                  </a>
+                </li>
+              </div>
+            ) : (
+              <div className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <a href={"/login"} className="nav-link">Login</a>
+                </li>
+              </div>
+            )}
           </div>
         </nav>
       </header>

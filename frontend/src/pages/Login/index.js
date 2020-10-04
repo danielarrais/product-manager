@@ -8,6 +8,8 @@ import CheckButton from "react-validation/build/button";
 import {connect} from "react-redux";
 import {login} from "../../redux/actions/auth";
 
+import './style.scss'
+
 const required = (value) => {
   if (!value) {
     return (
@@ -81,54 +83,61 @@ class Login extends Component {
     }
 
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <Form onSubmit={this.handleLogin}
-                ref={(c) => {
-                  this.form = c;
-                }}>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <Input type="text"
-                     className="form-control"
-                     name="email"
-                     value={this.state.email}
-                     onChange={this.onChangeEmail}
-                     validations={[required]}/>
+      <div className="col-md-12 login-card d-flex flex-column justify-content-center p-0">
+        <div className="col-lg-4 col-md-6 mx-auto">
+          <div className="card rounded shadow shadow-sm">
+            <div className="card-header">
+              <h3 className="mb-0">Login</h3>
             </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input type="password"
-                     className="form-control"
-                     name="password"
-                     value={this.state.password}
-                     onChange={this.onChangePassword}
-                     validations={[required]}/>
-            </div>
-
-            <div className="form-group">
-              <button className="btn btn-primary btn-block"
-                      disabled={this.state.loading}>
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm mr-1"/>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-
-            {message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {message}
+            <div className="card-body">
+              <Form onSubmit={this.handleLogin}
+                    ref={(c) => {
+                      this.form = c;
+                    }}>
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <Input type="text"
+                         className="form-control"
+                         name="email"
+                         value={this.state.email}
+                         onChange={this.onChangeEmail}
+                         validations={[required]}/>
                 </div>
-              </div>
-            )}
-            <CheckButton style={{display: "none"}}
-                         ref={(c) => {
-                           this.checkBtn = c;
-                         }}/>
-          </Form>
+
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <Input type="password"
+                         className="form-control"
+                         name="password"
+                         value={this.state.password}
+                         onChange={this.onChangePassword}
+                         validations={[required]}/>
+                </div>
+
+                <div className="form-group">
+                  <button className="btn btn-primary btn-block"
+                          disabled={this.state.loading}>
+                    {this.state.loading && (
+                      <span className="spinner-border spinner-border-sm mr-1"/>
+                    )}
+                    <span>Login</span>
+                  </button>
+                </div>
+
+                {message && (
+                  <div className="form-group">
+                    <div className="alert alert-danger" role="alert">
+                      {message}
+                    </div>
+                  </div>
+                )}
+                <CheckButton style={{display: "none"}}
+                             ref={(c) => {
+                               this.checkBtn = c;
+                             }}/>
+              </Form>
+            </div>
+          </div>
         </div>
       </div>
     );

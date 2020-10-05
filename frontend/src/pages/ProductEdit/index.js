@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import api from './../../services/api.service'
 import authHeader from "../../services/auth-header";
 import IntlCurrencyInput from "react-intl-currency-input"
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 const currencyConfig = {
   locale: "pt-BR",
@@ -20,8 +21,12 @@ const currencyConfig = {
   },
 };
 
-const override = css`
+const cssSavingProduct = css`
   margin-right: 5px;
+`;
+
+const cssLoadingProduct = css`
+  height: 30px;
 `;
 
 export default class ProductEdit extends Component {
@@ -33,6 +38,7 @@ export default class ProductEdit extends Component {
       loading: false,
       titleRequired: false,
       priceRequired: false,
+      loadingProduct: true,
       categoryRequired: false,
     }
   }
@@ -42,8 +48,9 @@ export default class ProductEdit extends Component {
 
     const response = await api.get(`/api/v1/products/${id}`, {headers: authHeader()})
 
-    await this.setState({
-      product: response.data
+    this.setState({
+      product: response.data,
+      loadingProduct: false
     });
   }
 
@@ -61,7 +68,7 @@ export default class ProductEdit extends Component {
 
   validateForm = async () => {
     const {product} = this.state;
-debugger
+    debugger
     await this.setState({
       titleRequired: product.title === undefined || product.title === '',
       priceRequired: product.price === undefined,
@@ -97,7 +104,7 @@ debugger
 
   render() {
     const {id} = this.props.match.params;
-    const {product, titleRequired, priceRequired, categoryRequired} = this.state;
+    const {product, titleRequired, priceRequired, categoryRequired, loadingProduct} = this.state;
 
     return (
       <main className="container mb-4">
@@ -107,6 +114,12 @@ debugger
               Edit product #{id}
             </div>
             <div className="card-body">
+                <div className="d-flex justify-content-center">
+                  <PropagateLoader
+                    size={15} css={cssLoadingProduct}
+                    color={"#ccc"}
+                    loading={this.state.loadingProduct}/>
+                </div>
               <form onSubmit={this.handleSubmit}>
                 <div className="row">
                   <div className="col-sm-3">
@@ -179,10 +192,10 @@ debugger
                   <Link to={'/'} type="submit" className="btn btn-info text-white">
                     Back
                   </Link>
-                  <button disabled={this.state.loading || titleRequired || priceRequired || categoryRequired}
+                  <button disabled={this.state.loading || loadingProduct || titleRequired || priceRequired || categoryRequired}
                           type="submit" className="btn btn-primary text-white">
                     <div className="d-flex justify-content-between">
-                      <ClipLoader css={override}
+                      <ClipLoader css={cssSavingProduct}
                                   size={22}
                                   color={"#ccc"}
                                   loading={this.state.loading}/>

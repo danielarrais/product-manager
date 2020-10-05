@@ -2,11 +2,13 @@
 
 Este projeto é uma aplicação simples para importação de produtos via arquivo com os registros em formato JSON. Além da importação ele permite a edição e a exclusão dos registros importados.
 
-## Como executar a aplicação
+## Como executar a aplicação no Linux Ubuntu
 
 Seguem abaixo o passo a passo para execução da aplicação no seu ambiente local.
 
 ### Projeto Ruby On Rails (backend)
+
+> Caso ocorra erro ao instalar a gem **mysql2**, execute um dos seguintes comandos no terminal do seu sistema operacional: `sudo apt install -y default-libmysqlclient-dev` ou ` sudo apt install libmysqlclient-dev`.
 
 1. [Instalar](https://gorails.com/setup/ubuntu/20.04) o Ruby On Rails 6 na máquina onde será escutada a aplicação;
 1. Clonar o projeto no local desejado;

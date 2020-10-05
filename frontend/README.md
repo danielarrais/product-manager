@@ -2,7 +2,7 @@
 
 Este projeto é uma aplicação simples desenvolvida em React.js para importação de produtos via arquivo com os registros em formato JSON. Além da importação ele permite a edição e a exclusão dos registros importados.
 
-## Como executar a aplicação
+## Como executar a aplicação no Linux Ubuntu
 
 Seguem abaixo o passo a passo para execução da aplicação no seu ambiente local.
 

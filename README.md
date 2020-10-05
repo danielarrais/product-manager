@@ -8,6 +8,8 @@ Seguem abaixo o passo a passo para execução das aplicações em seu ambiente l
 
 ### Projeto Ruby On Rails (backend)
 
+> Caso ocorra erro ao instalar a gem **mysql2**, execute um dos seguintes comandos no terminal do seu sistema operacional: `sudo apt install -y default-libmysqlclient-dev` ou ` sudo apt install libmysqlclient-dev`.
+
 1. [Instalar](https://gorails.com/setup/ubuntu/20.04) o Ruby On Rails 6 na máquina onde será escutada a aplicação;
 1. Clonar o projeto no local desejado;
 1. Rodar o comando `bundle install` dentro da pasta **backend**;
@@ -33,7 +35,7 @@ Caso não queira ver os logs da execução, basta adicionar a flag `-d` ao coman
 1. Documentar a API usando a GEM [rswag](https://github.com/rswag/rswag);
 1. Usar o resque para processar o arquivo em background e usar o actioncable para notificação a aplicação sobre o termino do processamento;
 1. Melhorar a autenticação para que a cada requisição seja gerado um novo token;
-1. Melhorar o arquivo de configuração do banco de dados para recuperar os dados de login das variáveis do sistema operacional;
+1. Ajustar o arquivo de configuração do banco de dados para recuperar os dados de login das variáveis do sistema operacional;
 
 #### **Frontend**
 

@@ -12,16 +12,15 @@ class ImportProductsService
     json = json_file.read
     products = JSON.parse(json)
 
-    products = products.map { |x| Product.new(x) }
+    products = products.map { |x| Product.new(change_type_to_category(x)) }
 
     Product.import! products
   end
 
-  def fill_attributes(products)
-    products.each do |product|
-      product['created_at'] = DateTime.current
-      product['updated_at'] = DateTime.current
-      product['category'] = product['type'] if product['type'].present?
-    end
+  def change_type_to_category(product)
+    product['category'] = product['type'] if product['type'].present?
+    product.delete('type') if product['type'].present?
+
+    product
   end
 end

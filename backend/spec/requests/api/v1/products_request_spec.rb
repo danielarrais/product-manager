@@ -16,7 +16,7 @@ RSpec.describe "Api::V1::Products", type: :request do
     it "if the same quantity is coming" do
       products = FactoryBot.create_list(:product, 10)
       get api_v1_products_path, headers: @headers
-      expect(products.size).to eq(json.size)
+      expect(products.size).to eq(json['docs'].size)
     end
   end
 

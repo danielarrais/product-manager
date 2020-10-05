@@ -3,8 +3,8 @@ class Api::V1::ProductsController < Api::V1::ApiController
   before_action :set_product, only: [:show, :update, :destroy]
 
   def index
-    @products = Product.all
-    render json: @products, status: :ok
+    @products = Product.all.page(page).per(per_page)
+    render json: json_pagination_info(@products), status: :ok
   end
 
   def show
@@ -12,8 +12,8 @@ class Api::V1::ProductsController < Api::V1::ApiController
   end
 
   def create
-    products = ImportProductsService.call(json_file_params)
-    render json: products, status: :ok
+    ImportProductsService.call(json_file_params)
+    render json: {}, status: :ok
   rescue ActiveRecord::RecordInvalid => e
     render json: { message: e.message }, status: :unprocessable_entity
   end
@@ -34,7 +34,7 @@ class Api::V1::ProductsController < Api::V1::ApiController
   private
 
   def json_file_params
-    params[:json_file]
+    params['json_file']
   end
 
   def product_params

@@ -1,68 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Product Manager com React.js
 
-## Available Scripts
+Este projeto é uma aplicação simples desenvolvida em React.js para importação de produtos via arquivo com os registros em formato JSON. Além da importação ele permite a edição e a exclusão dos registros importados.
 
-In the project directory, you can run:
+## Como executar a aplicação no Linux Ubuntu
 
-### `yarn start`
+Seguem abaixo o passo a passo para execução da aplicação no seu ambiente local.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Projeto React.js (frontend)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+1. Instalar o Nodejs 12 ou 13 na máquina onde será escutada a aplicação;
+1. Clonar o projeto no local desejado;
+1. Rodar o comando `yarn install` dentro da pasta **frontend**;
+1. Rodar o comando `npm start` dentro da pasta **frontend**;
 
-### `yarn test`
+### Executar usando docker-compose
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Opcionalmente você pode executar a aplicação em containers docker para isso basta instalar o docker e o docker compose em sua máquina, caso ainda não o tenha feito, e rodar o comando `docker-compose up` na raiz do respositório.
 
-### `yarn build`
+Caso não queira ver os logs da execução, basta adicionar a flag `-d` ao comando para que ele rode em segundo plano e não exiba os logs.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Sujestões de melhorias 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. Melhorar o tratamento de erro das requisições na aplicação React;
+1. Implementar testes unitários;
+1. Refatorar e reduzir o tamanho dos componentes;

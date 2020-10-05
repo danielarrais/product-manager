@@ -1,0 +1,17 @@
+version: '3'
+services:
+  backend:
+    build: .
+    working_dir: /app
+    command: bash -c "bundle install && bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0 -p 3000"
+    volumes:
+      - '.:/app'
+    expose:
+      - "3000"
+    ports:
+      - '3000:3000'
+    networks:
+      - product-manager
+networks:
+  product-manager:
+    driver: bridge

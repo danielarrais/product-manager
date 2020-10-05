@@ -4,6 +4,7 @@ import authHeader from './../../services/auth-header'
 import {currencyUSD, dateTimeBRL} from '../../utils/intl.utils'
 import PropagateLoader from "react-spinners/PropagateLoader";
 import {Link} from "react-router-dom";
+import Swal from 'sweetalert2'
 
 export default class ProductsList extends Component {
   state = {
@@ -55,6 +56,45 @@ export default class ProductsList extends Component {
     })
   }
 
+  deleteProduct = (id, product_name) => {
+    Swal.fire({
+      title: `<h2>Delete the <b>${product_name}</b> product?</h2>`,
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return api.delete(`/api/v1/products/${id}`, {headers: authHeader()})
+          .then(response => {
+            return response
+          }).catch((result) => {
+            return result.response
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      debugger
+      switch (result.value.status) {
+        case 200:
+          Swal.fire(
+            {
+              title: `Product deleted successfully!`,
+              icon: 'success'
+            }
+          );
+          this.loadProducts(this.state.currentPage)
+          break;
+        case 404:
+          Swal.fire(
+            {
+              title: 'Product not found!',
+              icon: 'error'
+            }
+          );
+      }
+    })
+  }
+
   render() {
     const {products, paginationInfo, currentPage} = this.state
 
@@ -87,6 +127,9 @@ export default class ProductsList extends Component {
                     <td>{dateTimeBRL(product.created_at)}</td>
                     <td className="text-center">
                       <Link to={`/products/${product.id}`}>Edit</Link>
+                      <a href="/#" className="text-danger ml-2" onClick={() => {
+                        this.deleteProduct(product.id, product.title)
+                      }}>Delete</a>
                     </td>
                   </tr>
                 ))}

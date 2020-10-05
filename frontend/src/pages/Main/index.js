@@ -30,7 +30,7 @@ export default class Main extends Component {
 
   handleSubmit = (event) => {
     this.validateForm().then(() => {
-      if (!this.state.formInvalid){
+      if (!this.state.formInvalid) {
         this.setState({
           loading: true
         }, this.importProducts)
@@ -78,13 +78,13 @@ export default class Main extends Component {
       fileNotSelected: this.state.fileType === undefined
     });
   }
-  
+
   validateForm = async () => {
     await this.validateFileFormat();
     await this.validateFileRequired();
 
     this.setState({
-      formInvalid: this.state.fileFormatInvalid ||  this.state.fileNotSelected
+      formInvalid: this.state.fileFormatInvalid || this.state.fileNotSelected
     })
   }
 

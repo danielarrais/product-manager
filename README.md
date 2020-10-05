@@ -1,10 +1,10 @@
-# API Product Manager com Ruby On Rails 
+# Product Manager (com Ruby On Rails e React.js)
 
-Este projeto é uma aplicação simples para importação de produtos via arquivo com os registros em formato JSON. Além da importação ele permite a edição e a exclusão dos registros importados.
+Este projeto é uma aplicação simples para importação de produtos via arquivo com os registros em formato JSON, permitindo também a edição e a exclusão dos registros importados.
 
 ## Como executar a aplicação
 
-Seguem abaixo o passo a passo para execução da aplicação no seu ambiente local.
+Seguem abaixo o passo a passo para execução das aplicações em seu ambiente local.
 
 ### Projeto Ruby On Rails (backend)
 
@@ -12,6 +12,13 @@ Seguem abaixo o passo a passo para execução da aplicação no seu ambiente loc
 1. Clonar o projeto no local desejado;
 1. Rodar o comando `bundle install` dentro da pasta **backend**;
 1. Rodar o comando `rails server -b 0.0.0.0 -p 3000` dentro da pasta **backend**;
+
+### Projeto React.js (frontend)
+
+1. Instalar o Nodejs 12 ou 13 na máquina onde será escutada a aplicação;
+1. Clonar o projeto no local desejado;
+1. Rodar o comando `yarn install` dentro da pasta **frontend**;
+1. Rodar o comando `npm start` dentro da pasta **frontend**;
 
 ### Executar usando docker-compose
 
@@ -21,7 +28,15 @@ Caso não queira ver os logs da execução, basta adicionar a flag `-d` ao coman
 
 # Sujestões de melhorias 
 
+#### **Backend**
+
 1. Documentar a API usando a GEM [rswag](https://github.com/rswag/rswag);
 1. Usar o resque para processar o arquivo em background e usar o actioncable para notificação a aplicação sobre o termino do processamento;
 1. Melhorar a autenticação para que a cada requisição seja gerado um novo token;
-1. Ajustar o arquivo de configuração do banco de dados para recuperar os dados de login das variáveis do sistema operacional;
+1. Melhorar o arquivo de configuração do banco de dados para recuperar os dados de login das variáveis do sistema operacional;
+
+#### **Frontend**
+
+1. Melhorar o tratamento de erro das requisições na aplicação React;
+1. Implementar testes unitários;
+1. Refatorar e reduzir o tamanho dos componentes;

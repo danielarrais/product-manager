@@ -38,7 +38,7 @@ class Api::V1::ProductsController < Api::V1::ApiController
   end
 
   def product_params
-    params.require(:product).permit(:title, :category, :price, :rating, :width, :height, :filename)
+    params.permit(:title, :category, :price, :rating, :width, :height, :filename)
   end
 
   def set_product

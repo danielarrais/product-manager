@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Products", type: :request do
     context 'when product exists' do
       context 'and updated with valid attributes' do
         before(:each) do
-          put api_v1_product_path(product), params: { product: product_attributes }, headers: @headers
+          put api_v1_product_path(product), params: product_attributes, headers: @headers
         end
 
         it 'returns status code 200' do
@@ -67,7 +67,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
       context 'and updated with invalid attributes' do
         it 'returns status code 422' do
-          put api_v1_product_path(product), params: { product: product_invalid_attributes }, headers: @headers
+          put api_v1_product_path(product), params: product_invalid_attributes, headers: @headers
           expect(response).to have_http_status(422)
         end
       end
@@ -75,7 +75,7 @@ RSpec.describe "Api::V1::Products", type: :request do
 
     context 'when the product does not exists' do
       before(:each) do
-        put api_v1_product_path(id: 0), params: { product: product_attributes }, headers: @headers
+        put api_v1_product_path(id: 0), params: product_attributes, headers: @headers
       end
 
       it 'return status code 404' do
